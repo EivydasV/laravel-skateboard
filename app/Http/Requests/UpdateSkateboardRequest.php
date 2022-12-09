@@ -24,7 +24,7 @@ class UpdateSkateboardRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255', 'unique:skateboards,name,' . $this->route('name')],
+            'name' => ['required', 'string', 'max:255', 'unique:skateboards'],
             'brand' => ['required', 'string', 'max:255'],
             'color' => ['required', 'string', 'max:255'],
             'width' => ['required', 'numeric', 'min:0'],

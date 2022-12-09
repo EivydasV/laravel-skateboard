@@ -15,5 +15,12 @@ class Skateboard extends Model
         'color',
         'width',
         'length',
+        'img',
+        'user_id'
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(Skateboard::class, 'foreign_key', 'owner_key');
+    }
 }

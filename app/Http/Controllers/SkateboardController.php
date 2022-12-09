@@ -7,9 +7,19 @@ use App\Http\Requests\UpdateSkateboardRequest;
 use App\Models\Skateboard;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\File;
 class SkateboardController extends Controller
 {
+    /**
+     * SkateboardController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index']);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -17,7 +27,8 @@ class SkateboardController extends Controller
      */
     public function index()
     {
-        return view('skateboard.index');
+        $skateboards = Skateboard::paginate(10);
+        return view('skateboard.index', compact('skateboards'));
     }
 
     /**
@@ -34,11 +45,22 @@ class SkateboardController extends Controller
      * Store a newly created resource in storage.
      *
      * @param StoreSkateboardRequest $request
-     * @return Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function store(StoreSkateboardRequest $request)
     {
-        //
+        $data = $request->validated();
+        $imageName = time().'.'.$request->img->extension();
+
+        $request->img->move(public_path('images'), $imageName);
+
+        $data['img'] = $imageName;
+        $data['user_id'] = Auth::id();
+
+        Skateboard::create($data);
+
+
+        return redirect()->route('skateboards.index');
     }
 
     /**
@@ -47,20 +69,21 @@ class SkateboardController extends Controller
      * @param \App\Models\Skateboard $skateboard
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show()
-    {
-        return view('skateboard.show');
-    }
+//    public function show()
+//    {
+//        return view('skateboard.show');
+//    }
 
     /**
      * Show the form for editing the specified resource.
      *
      * @param \App\Models\Skateboard $skateboard
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit(Skateboard $skateboard)
     {
-        //
+        $this->authorize('edit', $skateboard);
+        return view('skateboard.edit', compact('skateboard'));
     }
 
     /**
@@ -72,6 +95,11 @@ class SkateboardController extends Controller
      */
     public function update(UpdateSkateboardRequest $request, Skateboard $skateboard)
     {
+        $this->authorize('update', $skateboard);
+        $data = $request->validated();
+
+        $skateboard->update($data);
+
         return redirect()->back();
     }
 
@@ -83,8 +111,11 @@ class SkateboardController extends Controller
      */
     public function destroy(Skateboard $skateboard)
     {
+        $this->authorize('delete', $skateboard);
+
+        File::delete('images/'. $skateboard->img);
         $skateboard->delete();
 
-        return redirect()->route('skateboards.index');
+        return redirect()->back();
     }
 }

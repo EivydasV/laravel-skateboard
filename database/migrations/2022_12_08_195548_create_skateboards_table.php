@@ -21,6 +21,8 @@ return new class extends Migration
             $table->float('width');
             $table->float('length');
             $table->string('img');
+            $table->foreignId('user_id')->constrained()
+                ->onDelete('cascade');
             $table->timestamps();
         });
     }

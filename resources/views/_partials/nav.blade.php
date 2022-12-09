@@ -9,11 +9,23 @@
         <div class="collapse navbar-collapse" id="navbarResponsive">
             <ul class="navbar-nav text-uppercase ms-auto py-4 py-lg-0">
                 <li class="nav-item"><a class="nav-link" href="/">Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="{{route('skateboards.index')}}">Skateboards</a></li>
 
-                @if (Route::has('login'))
+            @if (Route::has('login'))
                     @auth
-                        <li class="nav-item"><a class="nav-link" href="{{ url('/home') }}">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{{route('skateboards.create')}}">Create Skateboard</a></li>
+                        <li class="nav-item"><a class="nav-link" href="{{route('skateboards.create')}}">Create
+                                Skateboard</a></li>
+                        <li class="nav-item">
+                            <a class="nav-link bg-danger" href="{{ route('logout') }}"
+                                                onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                {{ __('Logout') }}
+                            </a>
+
+                            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                @csrf
+                            </form>
+                        </li>
 
                     @else
                         <li class="nav-item"><a class="nav-link" href="{{ route('login') }}">Login</a></li>
@@ -23,7 +35,6 @@
                         @endif
                     @endauth
                 @endif
-                <li class="nav-item"><a class="nav-link" href="{{route('skateboards.index')}}">Skateboards</a></li>
             </ul>
         </div>
     </div>

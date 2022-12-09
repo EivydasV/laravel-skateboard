@@ -5,7 +5,7 @@
     <!-- Services-->
     @include('_partials.services')
     <!-- Portfolio Grid-->
-    @include('_partials.portfolio')
+{{--    @include('_partials.portfolio')--}}
     <!-- About-->
     @include('_partials.about')
     <!-- Team-->
