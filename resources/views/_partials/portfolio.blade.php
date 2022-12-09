@@ -1,7 +1,7 @@
 <section class="page-section bg-light" id="portfolio">
     <div class="container">
         <div class="text-center">
-            <h2 class="section-heading text-uppercase">Portfolio</h2>
+            <h2 class="section-heading text-uppercase">Skateboards</h2>
             <h3 class="section-subheading text-muted">Lorem ipsum dolor sit amet consectetur.</h3>
         </div>
         <div class="row">
@@ -12,7 +12,7 @@
                         <div class="portfolio-hover">
                             <div class="portfolio-hover-content"><i class="fas fa-plus fa-3x"></i></div>
                         </div>
-                        <img class="img-fluid" src="assets/img/portfolio/1.jpg" alt="..." />
+                        <img class="img-fluid" src="{{asset('assets/img/portfolio/1.jpg')}}" alt="..." />
                     </a>
                     <div class="portfolio-caption">
                         <div class="portfolio-caption-heading">Threads</div>
@@ -97,4 +97,8 @@
             </div>
         </div>
     </div>
+    <div class="d-flex justify-content-center mt-3">
+        <a class="btn btn-primary btn-xl text-uppercase" href="{{route('skateboards.index')}}">More</a>
+    </div>
+
 </section>

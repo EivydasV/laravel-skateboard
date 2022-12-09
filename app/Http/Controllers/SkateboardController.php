@@ -2,38 +2,41 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreSkateboardRequest;
+use App\Http\Requests\UpdateSkateboardRequest;
 use App\Models\Skateboard;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class SkateboardController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function index()
     {
-        //
+        return view('skateboard.index');
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function create()
     {
-        //
+        return view('skateboard.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreSkateboardRequest $request
+     * @return Response
      */
-    public function store(Request $request)
+    public function store(StoreSkateboardRequest $request)
     {
         //
     }
@@ -41,18 +44,18 @@ class SkateboardController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Skateboard  $skateboard
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Skateboard $skateboard
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function show(Skateboard $skateboard)
+    public function show()
     {
-        //
+        return view('skateboard.show');
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Skateboard  $skateboard
+     * @param \App\Models\Skateboard $skateboard
      * @return \Illuminate\Http\Response
      */
     public function edit(Skateboard $skateboard)
@@ -63,23 +66,25 @@ class SkateboardController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Skateboard  $skateboard
-     * @return \Illuminate\Http\Response
+     * @param UpdateSkateboardRequest $request
+     * @param Skateboard $skateboard
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, Skateboard $skateboard)
+    public function update(UpdateSkateboardRequest $request, Skateboard $skateboard)
     {
-        //
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Skateboard  $skateboard
-     * @return \Illuminate\Http\Response
+     * @param \App\Models\Skateboard $skateboard
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function destroy(Skateboard $skateboard)
     {
-        //
+        $skateboard->delete();
+
+        return redirect()->route('skateboards.index');
     }
 }

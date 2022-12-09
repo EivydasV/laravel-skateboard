@@ -8,4 +8,12 @@ use Illuminate\Database\Eloquent\Model;
 class Skateboard extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'name',
+        'brand',
+        'color',
+        'width',
+        'length',
+    ];
 }

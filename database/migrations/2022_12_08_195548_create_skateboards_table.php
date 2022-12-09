@@ -15,12 +15,12 @@ return new class extends Migration
     {
         Schema::create('skateboards', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('brand');
             $table->string('color');
             $table->float('width');
             $table->float('length');
-            $table->string('price');
+            $table->string('img');
             $table->timestamps();
         });
     }

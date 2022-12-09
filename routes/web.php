@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\SkateboardController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +15,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('main');
+    return view('welcome');
 });
 
 Auth::routes();
+
+Route::resource('skateboards', SkateboardController::class);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
